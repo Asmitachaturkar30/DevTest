@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body class="container mt-4">
+    <h1 class="mb-4">Upload File</h1>
+    <form method="POST" enctype="multipart/form-data" class="mb-4">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="file" name="file" class="form-control-file" accept=".csv, .xls, .xlsx" required>
+            <small class="file-name alert alert-info mt-2" style="display: none;"></small>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+</body>
+<script>
+    document.querySelector('input[type="file"]').onchange = function() {
+        const fileNameDisplay = document.querySelector('.file-name');
+        fileNameDisplay.style.display = 'block';
+        fileNameDisplay.textContent = 'Selected file: ' + this.files[0].name;
+    };
+</script>
+</html>
